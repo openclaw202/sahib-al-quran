@@ -6,7 +6,7 @@ import { SurahTabs } from './SurahTabs';
 import { MobileDrawer } from './MobileDrawer';
 
 export const MainDashboard: React.FC = () => {
-  const { selectedSurah, selectedId, selectSurah } = useSurahDetails(1);
+  const { selectedSurah, selectedSurahId, selectSurah } = useSurahDetails(1);
   const { isDrawerOpen, toggleDrawer, closeDrawer } = useNavigation();
 
   return (
@@ -16,12 +16,12 @@ export const MainDashboard: React.FC = () => {
         isOpen={isDrawerOpen} 
         onClose={closeDrawer} 
         onSelect={selectSurah} 
-        selectedId={selectedId} 
+        selectedId={selectedSurahId} 
       />
 
       {/* Sidebar - Persistent on Desktop */}
       <aside className="hidden lg:block w-72 h-full border-e bg-white">
-        <SurahSidebar onSelect={selectSurah} selectedId={selectedId} />
+        <SurahSidebar onSelect={selectSurah} selectedId={selectedSurahId} />
       </aside>
 
       {/* Main Content Area */}

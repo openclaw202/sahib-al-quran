@@ -1,4 +1,3 @@
-import React from 'react'
 import { MainDashboard } from './features/quran/components/MainDashboard'
 import './index.css'
 
