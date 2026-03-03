@@ -8,29 +8,41 @@ interface SurahSidebarProps {
 
 export const SurahSidebar: React.FC<SurahSidebarProps> = ({ onSelect, selectedId }) => {
   return (
-    <div className="flex flex-col h-full bg-[#FBFBFA] w-full font-graphik text-black">
-      {/* Surah List Only - Direct and Minimal */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 pb-20 space-y-1 scrollbar-hide no-scrollbar">
+    <div className="flex flex-col h-full bg-transparent w-full font-graphik text-[#1D1B4B]">
+
+      {/* Sidebar Header - Logo Only at the VERY TOP */}
+      <div className="pt-10 pb-6 px-8">
+        <div className="w-full animate-in fade-in slide-in-from-top-4 duration-1000">
+          <img
+            src="/images/Sahib Al Quran.png"
+            alt="صاحب القرآن"
+            className="w-full max-w-[220px] mx-auto object-contain"
+          />
+        </div>
+      </div>
+
+      {/* Surah List */}
+      <div className="flex-1 overflow-y-auto px-4 py-2 pb-20 space-y-1 scrollbar-hide no-scrollbar">
         {SURAH_LIST.map((surah) => (
           <button
             key={surah.id}
             onClick={() => onSelect(surah.id)}
-            className={`w-full group flex items-center justify-between p-2.5 rounded-xl transition-all ${selectedId === surah.id
-              ? 'bg-black text-white'
-              : 'bg-transparent hover:bg-gray-100 text-gray-700'
+            className={`w-full group flex items-center justify-between p-3 rounded-2xl transition-all duration-300 ${selectedId === surah.id
+                ? 'bg-[#1D1B4B] text-white shadow-lg shadow-[#1D1B4B]/10'
+                : 'bg-white/10 hover:bg-white/60 text-[#1D1B4B]/80'
               }`}
           >
-            <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-bold transition-all ${selectedId === surah.id ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-400'
+            <div className="flex items-center gap-4">
+              <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-[11px] font-black transition-all duration-300 ${selectedId === surah.id ? 'bg-white/20 text-white' : 'bg-white/60 text-[#1D1B4B]/40'
                 }`}>
                 {surah.id}
               </div>
               <div className="text-right">
-                <p className={`font-bold text-base ${selectedId === surah.id ? 'text-white' : 'text-gray-800'} leading-none mb-1`}>
+                <p className={`font-black text-base ${selectedId === surah.id ? 'text-white' : 'text-[#1D1B4B]'} leading-tight mb-0.5`}>
                   {surah.name}
                 </p>
-                <p className={`text-[8px] font-bold ${selectedId === surah.id ? 'text-gray-400' : 'text-gray-400'} uppercase tracking-tight`}>
-                  سورة رقم {surah.id}
+                <p className={`text-[9px] font-black ${selectedId === surah.id ? 'text-white/40' : 'text-[#1D1B4B]/40'} uppercase tracking-widest`}>
+                  سورة {surah.id}
                 </p>
               </div>
             </div>

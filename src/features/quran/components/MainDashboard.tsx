@@ -12,7 +12,8 @@ import {
   Calendar,
   Layers,
   Home,
-  Compass
+  Compass,
+  Quote
 } from 'lucide-react';
 
 type DashboardView = 'home' | 'tadabbur' | 'mushaf' | 'profile';
@@ -29,7 +30,7 @@ export const MainDashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-full bg-white overflow-hidden font-graphik antialiased text-black" dir="rtl">
+    <div className="flex h-screen w-full bg-[#fde2c5] overflow-hidden font-graphik antialiased text-[#1D1B4B]" dir="rtl">
       {/* Mobile Drawer */}
       <MobileDrawer
         isOpen={isDrawerOpen}
@@ -39,7 +40,7 @@ export const MainDashboard: React.FC = () => {
       />
 
       {/* Persistent Sidebar (Desktop Only) */}
-      <aside className="hidden lg:flex w-[320px] h-full flex-col z-40 bg-[#FBFBFA] border-l border-gray-100">
+      <aside className="hidden lg:flex w-[320px] h-full flex-col z-40 bg-transparent border-l border-[#1D1B4B]/5">
         <SurahSidebar onSelect={handleSelectSurah} selectedId={selectedSurahId} />
       </aside>
 
@@ -47,159 +48,149 @@ export const MainDashboard: React.FC = () => {
       <main className="flex-1 flex flex-col h-full overflow-hidden relative">
 
         {/* Modern Minimal Header */}
-        <header className="h-[70px] flex items-center justify-between px-6 lg:px-10 z-30">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center border border-gray-100 overflow-hidden">
+        <header className="h-[90px] flex items-center justify-between px-6 lg:px-12 z-30">
+          <div className="flex items-center gap-4">
+            <div className="h-10 animate-in fade-in duration-1000">
               <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-                alt="User"
-                className="w-full h-full object-cover"
+                src="/images/Sahib Al Quran.png"
+                alt="صاحب القرآن"
+                className="h-full object-contain"
               />
-            </div>
-            <div className="hidden sm:block">
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">مرحباً بك مجدداً</p>
-              <p className="text-sm font-bold text-gray-800">صاحب القرآن</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button className="w-9 h-9 flex items-center justify-center nav-item lg:hidden shadow-none" onClick={toggleDrawer}>
-              <Menu size={18} className="text-gray-700" />
+          <div className="flex items-center gap-3">
+            <button className="w-10 h-10 flex items-center justify-center nav-item lg:hidden shadow-none border-none bg-transparent" onClick={toggleDrawer}>
+              <Menu size={20} className="text-[#1D1B4B]" />
             </button>
-            <button className="w-9 h-9 items-center justify-center nav-item hidden lg:flex shadow-none">
-              <Settings size={18} className="text-gray-400" />
+            <button className="w-10 h-10 items-center justify-center nav-item hidden lg:flex shadow-none border-none bg-transparent">
+              <Settings size={20} className="text-[#1D1B4B]/30" />
             </button>
           </div>
         </header>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide pb-28">
-          <div className="max-w-4xl mx-auto px-6 lg:px-10 py-6">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide pb-32">
+          <div className="max-w-5xl mx-auto px-6 lg:px-12 py-8">
 
             {currentView === 'home' && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                {/* Greeting */}
-                <div className="mb-10 text-right">
-                  <p className="text-gray-400 text-xs font-medium mb-1.5">4 مارس، 2026</p>
-                  <h2 className="text-3xl lg:text-4xl font-black text-black leading-tight tracking-tight">
-                    أهلاً بك! كيف حال قلبك <br />
-                    مع القرآن اليوم؟
-                  </h2>
+              <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 space-y-10">
+                {/* Greeting Hero */}
+                <div>
+                  <h1 className="text-5xl lg:text-7xl font-black text-[#1D1B4B] leading-tight tracking-tight">
+                    قُرآنٌ <span className="text-[#FF6B4A]">لِبِناءِ</span> <span className="text-[#E91E63]">الإِنسان.</span>
+                  </h1>
                 </div>
 
-                {/* Quick States */}
-                <div className="flex gap-3 overflow-x-auto pb-8 scrollbar-hide no-scrollbar rtl:flex-row-reverse">
-                  {[
-                    { label: 'متفائل', emoji: '😊' },
-                    { label: 'هادئ', emoji: '😌' },
-                    { label: 'مشتاق', emoji: '✨' },
-                    { label: 'متدبر', emoji: '📖' },
-                  ].reverse().map((item, idx) => (
-                    <button
-                      key={idx}
-                      className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F5F5F7] hover:bg-gray-200 transition-colors active:scale-95 border-none"
-                    >
-                      <span className="text-lg">{item.emoji}</span>
-                      <span className="text-sm font-semibold text-gray-700">{item.label}</span>
-                    </button>
-                  ))}
-                </div>
-
-                {/* Bento Grid */}
-                <div className="grid grid-cols-4 gap-4 mb-4">
-                  <div
-                    onClick={() => setCurrentView('tadabbur')}
-                    className="col-span-4 lg:col-span-2 bento-card bg-[#E8E1FF] text-purple-950 flex flex-col justify-end min-h-[170px] cursor-pointer hover:bg-[#dfd7ff] transition-colors"
-                  >
-                    <div>
-                      <p className="text-purple-900/40 text-[10px] font-bold uppercase tracking-widest mb-1">السورة الحالية</p>
-                      <h3 className="text-4xl font-black leading-none mb-3">سورة {selectedSurah.name}</h3>
-                      <div className="flex items-center gap-2">
-                        <p className="text-xs text-purple-900/60 font-bold">انقر للتفاصيل والتأمل</p>
-                      </div>
-                    </div>
+                {/* Featured Quote Card - Minimalist */}
+                <div className="bg-white/40 backdrop-blur-md border border-white/60 rounded-[40px] p-8 lg:p-12 flex flex-col md:flex-row items-center gap-10 group hover:bg-white/60 transition-all duration-500">
+                  <div className="w-16 h-16 rounded-full bg-[#1D1B4B] flex items-center justify-center text-[#fde2c5] shrink-0">
+                    <Quote size={24} />
                   </div>
-
-                  <div className="col-span-2 lg:col-span-1 bento-card bg-[#FFE5D4] flex flex-col justify-between h-[170px]">
-                    <div className="w-8 h-8 rounded-lg bg-orange-400/10 flex items-center justify-center text-orange-600">
-                      <Layers size={16} />
-                    </div>
-                    <div>
-                      <p className="text-orange-900/40 text-[10px] font-bold uppercase tracking-wider mb-0.5">عدد الآيات</p>
-                      <p className="text-2xl font-black text-orange-950">{selectedSurah.versesCount}</p>
-                    </div>
-                  </div>
-
-                  <div className="col-span-2 lg:col-span-1 bento-card bg-[#D6F1FF] flex flex-col justify-between h-[170px]">
-                    <div className="w-8 h-8 rounded-lg bg-blue-400/10 flex items-center justify-center text-blue-600">
-                      <Calendar size={16} />
-                    </div>
-                    <div>
-                      <p className="text-blue-900/40 text-[10px] font-bold uppercase tracking-wider mb-0.5">مكان النزول</p>
-                      <p className="text-xl font-black text-blue-950">
-                        {selectedSurah.revelationType === 'MAKKI' ? 'مكية' : 'مدنية'}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="col-span-4 lg:col-span-2 bento-card bg-[#D4FADA] border-none shadow-none">
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="text-[10px] font-bold text-green-800 uppercase tracking-widest">تحدي اليوم</span>
-                      <span className="text-[10px] font-bold text-green-700/40">سؤال 1/5</span>
-                    </div>
-                    <p className="text-lg font-black text-green-950 mb-6 leading-tight">
-                      هل قرأت وردك اليومي من القرآن بتمعن؟
+                  <div className="flex-1 text-center md:text-right">
+                    <p className="text-2xl lg:text-3xl font-black text-[#1D1B4B] leading-relaxed mb-4">
+                      "أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ أَمْ عَلَى قلوبٍ أَقْفَالُهَا"
                     </p>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button className="py-3 bg-black text-white rounded-xl font-bold text-xs active:scale-95 transition-all">نعم</button>
-                      <button className="py-3 bg-white text-black border border-green-200/50 rounded-xl font-bold text-xs active:scale-95 transition-all">ليس بعد</button>
-                    </div>
+                    <p className="text-[10px] font-black text-[#1D1B4B]/30 uppercase tracking-[0.4em]">سورة محمد | آية ٢٤</p>
                   </div>
+                  <button className="px-8 py-4 bg-[#FF6B4A] text-white rounded-full text-[12px] font-black uppercase tracking-widest cursor-pointer hover:bg-[#ff552e] hover:shadow-xl hover:shadow-[#FF6B4A]/20 transition-all duration-300">
+                    ابدأ التدبر
+                  </button>
+                </div>
 
-                  <div className="col-span-4 lg:col-span-2 bento-card bg-[#F5F5F7] flex flex-col justify-between">
-                    <div className="flex justify-between items-center mb-3">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">الإنجاز الأسبوعي</p>
+                {/* Creative Minimal Grid */}
+                <div className="grid grid-cols-12 gap-8">
+
+                  {/* Large Progress Card */}
+                  <div className="col-span-12 lg:col-span-12 bg-white/40 border border-white/60 rounded-[40px] p-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                    <div className="md:w-1/2 text-right">
+                      <h3 className="text-2xl font-black text-[#1D1B4B] mb-3">رحلتك الإيمانية</h3>
+                      <p className="text-base text-[#1D1B4B]/60 font-medium leading-relaxed">أتممت قراءة ٢٤ صفحة من وردك اليومي بتركيز. استمر في هذا المسار النوراني.</p>
                     </div>
-                    <div className="flex items-end gap-1.5 h-20 mb-2">
+                    <div className="flex items-end gap-4 h-28 w-full md:w-auto">
                       {[35, 65, 40, 85, 55, 75, 50].map((h, i) => (
                         <div
                           key={i}
-                          className="flex-1 bg-gray-200 rounded-[4px] hover:bg-black transition-colors"
+                          className={`w-12 rounded-2xl transition-all duration-500 cursor-pointer ${i === 3 ? 'bg-[#FF6B4A]' : 'bg-[#1D1B4B]/5 hover:bg-[#1D1B4B]/20'}`}
                           style={{ height: `${h}%` }}
                         />
                       ))}
                     </div>
-                    <div className="flex justify-between mt-1">
-                      <p className="text-lg font-black text-black">24 صفحة</p>
-                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">هذا الأسبوع</p>
+                  </div>
+
+                  {/* Smaller Square Elements */}
+                  <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-white/40 border border-white/60 rounded-[40px] p-10 min-h-[280px] flex flex-col justify-between cursor-pointer group hover:bg-[#DCD6FF]/40 active:scale-[0.98] transition-all duration-500" onClick={() => handleSelectSurah(selectedSurahId)}>
+                    <div className="w-12 h-12 rounded-2xl bg-[#1D1B4B]/10 flex items-center justify-center text-[#1D1B4B]">
+                      <Compass size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[#1D1B4B]/40 text-[11px] font-black uppercase tracking-widest mb-3">نقطة الوصول</p>
+                      <h3 className="text-3xl font-black text-[#1D1B4B]">سورة {selectedSurah.name}</h3>
+                      <p className="text-[10px] font-black text-[#1D1B4B]/60 mt-4 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#FF6B4A] animate-pulse"></span>
+                        استئناف القراءة الآن
+                      </p>
                     </div>
                   </div>
+
+                  <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-white/40 border border-white/60 rounded-[40px] p-10 min-h-[280px] flex flex-col justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-[#00695C]/10 flex items-center justify-center text-[#00695C]">
+                      <Calendar size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[#00695C]/40 text-[11px] font-black uppercase tracking-widest mb-3">تحدي اليوم</p>
+                      <h3 className="text-xl lg:text-2xl font-black text-[#1D1B4B] leading-snug">هل قرأت الورد الصباحي بتمعن وفكر؟</h3>
+                      <div className="flex gap-4 mt-8">
+                        <button className="px-8 py-3 bg-[#00695C] text-white rounded-full text-[11px] font-black uppercase tracking-widest cursor-pointer hover:shadow-lg hover:shadow-[#00695C]/20 transition-all">نعم</button>
+                        <button className="px-8 py-3 bg-transparent border border-[#00695C]/20 text-[#00695C] rounded-full text-[11px] font-black uppercase tracking-widest cursor-pointer hover:bg-[#00695C]/5 transition-all">لاحقاً</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-span-12 lg:col-span-4 bg-white/40 border border-white/60 rounded-[40px] p-10 min-h-[280px] flex flex-col justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-[#E91E63]/10 flex items-center justify-center text-[#E91E63]">
+                      <Layers size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[#E91E63]/40 text-[11px] font-black uppercase tracking-widest mb-3">إحصائياتك</p>
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-5xl font-black text-[#1D1B4B]">{selectedSurah.versesCount}</span>
+                        <span className="text-[11px] font-black text-[#1D1B4B]/40 uppercase tracking-widest">آية مدروسة</span>
+                      </div>
+                      <p className="text-[10px] font-black text-[#1D1B4B]/40 mt-3 uppercase tracking-[0.2em]">النزول: {selectedSurah.revelationType === 'MAKKI' ? 'مكة المكرمة' : 'المدينة المنورة'}</p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             )}
 
             {currentView === 'tadabbur' && (
-              <div className="animate-in fade-in slide-in-from-left-4 duration-500">
-                <div className="mb-6 text-right">
-                  <h2 className="text-3xl font-black text-black underline underline-offset-8 decoration-gray-100 decoration-4">تأملات سورة {selectedSurah.name}</h2>
+              <div className="animate-in fade-in slide-in-from-left-6 duration-700">
+                <div className="mb-12 text-right">
+                  <h2 className="text-5xl lg:text-6xl font-black text-[#1D1B4B] tracking-tight leading-tight">تأملات <br /> {selectedSurah.name}</h2>
                 </div>
                 <SurahTabs surah={selectedSurah} />
               </div>
             )}
 
             {currentView === 'mushaf' && (
-              <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-500">
-                <BookOpen size={48} className="text-gray-100 mb-4" />
-                <h2 className="text-2xl font-black text-black">المصحف الشريف</h2>
-                <p className="text-gray-400 text-sm mt-2">جارٍ تجهيز عرض المصحف التفاعلي...</p>
+              <div className="flex flex-col items-center justify-center py-32 text-center animate-in fade-in duration-700 px-4">
+                <div className="w-24 h-24 bg-white/40 border border-white/60 rounded-[40px] flex items-center justify-center text-[#1D1B4B]/10 mb-8">
+                  <BookOpen size={48} />
+                </div>
+                <h2 className="text-4xl font-black text-[#1D1B4B]">المصحف التفاعلي</h2>
+                <p className="text-[#1D1B4B]/40 text-lg mt-6 max-w-sm leading-relaxed font-medium">نعمل على بناء تجربة تصفح فريدة لكتاب الله، مريحة للعين ومعينة على التدبر والتعمق.</p>
               </div>
             )}
 
             {currentView === 'profile' && (
-              <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-500">
-                <User size={48} className="text-gray-100 mb-4" />
-                <h2 className="text-2xl font-black text-black">ملفي الشخصي</h2>
-                <p className="text-gray-400 text-sm mt-2">إحصائياتك وإنجازاتك هنا قريباً...</p>
+              <div className="flex flex-col items-center justify-center py-32 text-center animate-in fade-in duration-700 px-4">
+                <div className="w-24 h-24 bg-white/40 border border-white/60 rounded-[32px] flex items-center justify-center text-[#1D1B4B]/10 mb-8">
+                  <User size={48} />
+                </div>
+                <h2 className="text-4xl font-black text-[#1D1B4B]">الملف الشخصي</h2>
+                <p className="text-[#1D1B4B]/40 text-lg mt-6 max-w-sm leading-relaxed font-medium">هنا ستجد إحصائياتك، أهدافك، وما أنجزته من تدبر وحفظ بمرور الوقت مع صاحب القرآن.</p>
               </div>
             )}
 
@@ -207,34 +198,34 @@ export const MainDashboard: React.FC = () => {
         </div>
 
         {/* Minimal Static Bottom Nav */}
-        <div className="fixed bottom-0 left-0 right-0 h-[80px] bg-white border-t border-gray-100 flex items-center justify-around px-8 z-50 lg:hidden shadow-none">
+        <div className="fixed bottom-0 left-0 right-0 h-[100px] bg-[#fde2c5]/90 backdrop-blur-xl border-t border-white/20 flex items-center justify-around px-8 z-50 lg:hidden shadow-none">
           <button
             onClick={() => setCurrentView('home')}
-            className={`flex flex-col items-center gap-1.5 transition-colors ${currentView === 'home' ? 'text-black' : 'text-gray-300'}`}
+            className={`flex flex-col items-center gap-2 transition-all duration-300 ${currentView === 'home' ? 'text-[#1D1B4B] scale-110' : 'text-[#1D1B4B]/20 hover:text-[#1D1B4B]/40'}`}
           >
-            <Home size={22} strokeWidth={currentView === 'home' ? 2.5 : 2} />
-            <span className="text-[9px] font-black uppercase tracking-widest">الرئيسية</span>
+            <Home size={24} strokeWidth={currentView === 'home' ? 2.5 : 2} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">البداية</span>
           </button>
           <button
             onClick={() => setCurrentView('tadabbur')}
-            className={`flex flex-col items-center gap-1.5 transition-colors ${currentView === 'tadabbur' ? 'text-black' : 'text-gray-300'}`}
+            className={`flex flex-col items-center gap-2 transition-all duration-300 ${currentView === 'tadabbur' ? 'text-[#1D1B4B] scale-110' : 'text-[#1D1B4B]/20 hover:text-[#1D1B4B]/40'}`}
           >
-            <Compass size={22} strokeWidth={currentView === 'tadabbur' ? 2.5 : 2} />
-            <span className="text-[9px] font-black uppercase tracking-widest">التدبر</span>
+            <Compass size={24} strokeWidth={currentView === 'tadabbur' ? 2.5 : 2} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">التدبر</span>
           </button>
           <button
             onClick={() => setCurrentView('mushaf')}
-            className={`flex flex-col items-center gap-1.5 transition-colors ${currentView === 'mushaf' ? 'text-black' : 'text-gray-300'}`}
+            className={`flex flex-col items-center gap-2 transition-all duration-300 ${currentView === 'mushaf' ? 'text-[#1D1B4B] scale-110' : 'text-[#1D1B4B]/20 hover:text-[#1D1B4B]/40'}`}
           >
-            <BookOpen size={22} strokeWidth={currentView === 'mushaf' ? 2.5 : 2} />
-            <span className="text-[9px] font-bold uppercase tracking-widest">المصحف</span>
+            <BookOpen size={24} strokeWidth={currentView === 'mushaf' ? 2.5 : 2} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">المصحف</span>
           </button>
           <button
             onClick={() => setCurrentView('profile')}
-            className={`flex flex-col items-center gap-1.5 transition-colors ${currentView === 'profile' ? 'text-black' : 'text-gray-300'}`}
+            className={`flex flex-col items-center gap-2 transition-all duration-300 ${currentView === 'profile' ? 'text-[#1D1B4B] scale-110' : 'text-[#1D1B4B]/20 hover:text-[#1D1B4B]/40'}`}
           >
-            <User size={22} strokeWidth={currentView === 'profile' ? 2.5 : 2} />
-            <span className="text-[9px] font-bold uppercase tracking-widest">ملفي</span>
+            <User size={24} strokeWidth={currentView === 'profile' ? 2.5 : 2} />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">ملفي</span>
           </button>
         </div>
       </main>

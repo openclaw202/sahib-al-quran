@@ -67,15 +67,19 @@
 @tailwind utilities;
 
 :root {
-  --app-bg: #FFFFFF;
-  --card-orange: #FFE5D4;
-  --card-purple: #E8E1FF;
-  --card-green: #D4FADA;
-  --card-blue: #D6F1FF;
-  --card-pink: #FFD6E8;
-  --text-main: #000000;
-  --text-muted: #86868B;
-  --border-light: #F2F2F7;
+  /* Colors from Logo - Exact Background Requested */
+  --app-bg: #fde2c5;
+  --app-bg-alt: #f5d4b5;
+  --text-main: #1D1B4B;
+  /* Deep Indigo from logo text */
+  --text-muted: #6B5E52;
+
+  --brand-primary: #1D1B4B;
+  --brand-orange: #FF6B4A;
+  --brand-pink: #E91E63;
+  --brand-green: #00695C;
+
+  --border-light: rgba(29, 27, 75, 0.05);
 }
 
 @layer base {
@@ -91,6 +95,7 @@
     @apply h-full m-0 p-0 overflow-hidden antialiased;
     background-color: var(--app-bg);
     font-family: 'Graphik Arabic', sans-serif !important;
+    color: var(--text-main);
   }
 
   input,
@@ -112,7 +117,8 @@
 
 @layer components {
   .bento-card {
-    @apply rounded-[20px] p-5 transition-transform duration-200 active:scale-[0.99] border-none;
+    @apply rounded-[32px] p-8 transition-all duration-500 ease-[cubic-bezier(0.23, 1, 0.32, 1)] border-none;
+    background-color: white;
   }
 
   .flat-button {
@@ -120,7 +126,7 @@
   }
 
   .nav-item {
-    @apply p-2 rounded-xl transition-colors text-slate-400 hover:bg-slate-50;
+    @apply p-2 rounded-xl transition-colors text-slate-400 hover:bg-white/50;
   }
 }
 
