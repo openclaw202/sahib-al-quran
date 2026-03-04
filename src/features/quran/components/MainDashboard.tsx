@@ -10,24 +10,25 @@ import {
   BookOpen,
   Home,
   Compass,
-  MapPin,
   MessageCircle,
   PenTool,
   Bookmark,
-  Layout,
   Book,
-  Search
+  Search,
+  Users,
+  Mountain,
+  ClipboardList
 } from 'lucide-react';
 
-type DashboardView = 'home' | 'tadabbur' | 'mushaf' | 'profile';
+type DashboardView = 'home' | 'tadabbur' | 'mushaf' | 'profile' | 'madani' | 'makki' | 'methodology';
 
 // Helper component for the icon greed bubbles
-const IconBubble: React.FC<{ icon: React.ReactNode, bgColor: string, iconColor: string, label: string }> = ({ icon, bgColor, iconColor, label }) => (
-  <div className="flex flex-col items-center gap-2">
+const IconBubble: React.FC<{ icon: React.ReactNode, bgColor: string, iconColor: string, label: string, onClick?: () => void }> = ({ icon, bgColor, iconColor, label, onClick }) => (
+  <div className="flex flex-col items-center gap-2" onClick={onClick}>
     <div className={`w-14 h-14 rounded-[22px] flex items-center justify-center transition-transform hover:scale-105 cursor-pointer`} style={{ backgroundColor: bgColor, color: iconColor }}>
       {icon}
     </div>
-    <span className="text-[10px] font-bold text-[#1D1B4B]/40">{label}</span>
+    <span className="text-[10px] font-bold text-[#1D1B4B]/20 text-center px-1 leading-tight">{label}</span>
   </div>
 );
 
@@ -188,15 +189,126 @@ export const MainDashboard: React.FC = () => {
 
                 {/* 2. Icon Grid Bubble Styling */}
                 <div className="grid grid-cols-4 gap-y-6 mb-10">
-                  <IconBubble label="التدبر" icon={<Bookmark size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0E6FF" iconColor="#9B66FF" />
-                  <IconBubble label="الموقع" icon={<MapPin size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#E3F9EC" iconColor="#49C18B" />
-                  <IconBubble label="المجتمع" icon={<MessageCircle size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEF7E1" iconColor="#F1C40F" />
-                  <IconBubble label="تحدي" icon={<Layout size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF1F1" iconColor="#FF6B6B" />
+                  <IconBubble
+                    label="التدبر"
+                    icon={<Bookmark size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />}
+                    bgColor="#F0E6FF"
+                    iconColor="#9B66FF"
+                    onClick={() => setCurrentView('tadabbur')}
+                  />
+                  <IconBubble
+                    label="بيئة مدنية"
+                    icon={<Users size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />}
+                    bgColor="#E3F9EC"
+                    iconColor="#49C18B"
+                    onClick={() => setCurrentView('madani')}
+                  />
+                  <IconBubble
+                    label="بيئة مكية"
+                    icon={<Mountain size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />}
+                    bgColor="#FEF7E1"
+                    iconColor="#F1C40F"
+                    onClick={() => setCurrentView('makki')}
+                  />
+                  <IconBubble
+                    label="المنهجية"
+                    icon={<ClipboardList size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />}
+                    bgColor="#FFF1F1"
+                    iconColor="#FF6B6B"
+                    onClick={() => setCurrentView('methodology')}
+                  />
 
                   <IconBubble label="مفكرة" icon={<PenTool size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEFBEA" iconColor="#E67E22" />
                   <IconBubble label="ملفي" icon={<MessageCircle size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F2F3FF" iconColor="#5F27CD" />
                   <IconBubble label="أذكار" icon={<Book size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF3E0" iconColor="#E67E22" />
                   <IconBubble label="إرشاد" icon={<Bookmark size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#E3F9EC" iconColor="#009432" />
+                </div>
+              </div>
+            )}
+
+            {currentView === 'madani' && (
+              <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 max-w-[450px] mx-auto">
+                <div className="mb-8 text-right">
+                  <span className="text-[10px] font-black text-green-500 uppercase tracking-widest mb-2 block">دراسات قرآنية</span>
+                  <h2 className="text-3xl font-black text-[#1D1B4B] mb-2">🕌 خصائص البيئة المدنية</h2>
+                  <p className="text-xs font-bold text-gray-400">مميزات السور والآيات التي نزلت بالمدينة</p>
+                </div>
+
+                <div className="space-y-4">
+                  {[
+                    "الجهاد والقتال",
+                    "بيان الأحكام",
+                    "فضح المنافقين والكلام عن حيلهم ومكرهم",
+                    "الكلام عن أهل الجدال",
+                    "التعليق عن شؤون الأحكام"
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-white p-5 rounded-2xl border border-gray-100 flex items-start gap-4">
+                      <div className="w-8 h-8 rounded-xl bg-green-50 flex items-center justify-center text-green-600 font-black text-sm shrink-0">
+                        {idx + 1}
+                      </div>
+                      <p className="text-sm font-bold text-[#1D1B4B] leading-relaxed pt-1">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {currentView === 'makki' && (
+              <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 max-w-[450px] mx-auto">
+                <div className="mb-8 text-right">
+                  <span className="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-2 block">دراسات قرآنية</span>
+                  <h2 className="text-3xl font-black text-[#1D1B4B] mb-2">🕌 خصائص البيئة المكية</h2>
+                  <p className="text-xs font-bold text-gray-400">فهم طبيعة التنزيل المكي وتحدياته</p>
+                </div>
+
+                <div className="space-y-4">
+                  {[
+                    { title: "الاستضعاف العام", desc: "المسلمون كانوا يشاهدون الأصنام بأعينهم، ويُؤذَوْن أذًى شديدًا جدًا — حتى النبي ﷺ كان يُؤذَى أذًى جسديًا!" },
+                    { title: "وجود الأصنام وصناديد كفار قريش", desc: "إذا تفرّغ الناس بالنضر — انشغل أنت ببناء الوجوه النضرة! اصنع ابني. هل الأصنام كسرتهم؟ — بفضل الله لا." },
+                    { title: "البيئة الأرقامية والمَحض التربوي", desc: "تخيّل ماشي والأصنام قدامك بتُعبد — خليك صنايعي — خلي عندك رُشد وإدراك." }
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-white p-6 rounded-3xl border border-gray-100 space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600 font-black text-xs">
+                          {idx + 1}
+                        </div>
+                        <h4 className="font-black text-[#1D1B4B] text-base">{item.title}</h4>
+                      </div>
+                      <p className="text-[13px] font-medium text-gray-500 leading-relaxed pr-11">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {currentView === 'methodology' && (
+              <div className="animate-in fade-in slide-in-from-bottom-6 duration-700 max-w-[450px] mx-auto">
+                <div className="mb-8 text-right">
+                  <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-2 block">المنهجية العلمية</span>
+                  <h2 className="text-3xl font-black text-[#1D1B4B] mb-2">📋 كيف تُصاحب سورة؟</h2>
+                  <p className="text-xs font-bold text-gray-400">المنهجية العشرة لإتقان فهم السور</p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    "تعرف الأول: مكية ولا مدنية",
+                    "ما اسم السورة؟ وارتباطه بموضوعها؟ وهل لها أكثر من اسم؟",
+                    "هل ذكر النبي ﷺ فضلًا لها؟ ومتى كان يقرأها؟",
+                    "ما ترتيب نزولها؟ وترتيبها في المصحف؟",
+                    "ما أسباب النزول؟",
+                    "ما غريب الكلمات فيها؟",
+                    "ما الآيات عن اليوم الآخر وتفاصيله؟",
+                    "ما الآيات عن مفردات الإيمان والتقوى؟",
+                    "ما الآيات ذات الأوامر المُبشِّرة وغير المُبشِّرة؟",
+                    "ما الأفعال المباشرة وغير المباشرة؟"
+                  ].map((step, idx) => (
+                    <div key={idx} className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center gap-4 transition-all hover:border-blue-100 group">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 font-black text-sm shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        {idx + 1}
+                      </div>
+                      <p className="text-sm font-bold text-[#1D1B4B] leading-snug">{step}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
