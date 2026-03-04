@@ -17,7 +17,13 @@ import {
   Search,
   Users,
   Mountain,
-  ClipboardList
+  ClipboardList,
+  Lightbulb,
+  Heart,
+  Moon,
+  Globe,
+  Trophy,
+  User
 } from 'lucide-react';
 
 type DashboardView = 'home' | 'tadabbur' | 'mushaf' | 'profile' | 'madani' | 'makki' | 'methodology';
@@ -218,10 +224,16 @@ export const MainDashboard: React.FC = () => {
                     onClick={() => setCurrentView('methodology')}
                   />
 
-                  <IconBubble label="مفكرة" icon={<PenTool size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEFBEA" iconColor="#E67E22" />
-                  <IconBubble label="ملفي" icon={<MessageCircle size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F2F3FF" iconColor="#5F27CD" />
-                  <IconBubble label="أذكار" icon={<Book size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF3E0" iconColor="#E67E22" />
-                  <IconBubble label="إرشاد" icon={<Bookmark size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#E3F9EC" iconColor="#009432" />
+                  {/* Dynamic added categories */}
+                  <IconBubble label="تأملاتي" icon={<PenTool size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEFBEA" iconColor="#E67E22" />
+                  <IconBubble label="المجتمع" icon={<MessageCircle size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F2F3FF" iconColor="#5F27CD" />
+                  <IconBubble label="أدعية القرآن" icon={<Heart size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF3E0" iconColor="#FF6B6B" />
+                  <IconBubble label="أذكار القرآن" icon={<Moon size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#E3F9EC" iconColor="#49C18B" />
+
+                  <IconBubble label="إضاءات" icon={<Lightbulb size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF1F1" iconColor="#FF4757" />
+                  <IconBubble label="التفسير" icon={<BookOpen size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0F8FF" iconColor="#1E90FF" />
+                  <IconBubble label="قصص القرآن" icon={<Globe size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEF7E1" iconColor="#F1C40F" />
+                  <IconBubble label="مسابقات" icon={<Trophy size={22} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0E6FF" iconColor="#9B66FF" />
                 </div>
               </div>
             )}
@@ -339,6 +351,10 @@ export const MainDashboard: React.FC = () => {
           <button onClick={() => setCurrentView('mushaf')} className={`flex-1 flex flex-col items-center justify-center gap-1 transition-all ${currentView === 'mushaf' ? 'text-[#FF6B4A]' : 'text-gray-300'}`}>
             <BookOpen size={24} strokeWidth={currentView === 'mushaf' ? 3 : 2} fill="currentColor" fillOpacity={currentView === 'mushaf' ? 0.15 : 0} />
             <span className="text-[9px] font-black uppercase tracking-tighter">المصحف</span>
+          </button>
+          <button onClick={() => setCurrentView('profile')} className={`flex-1 flex flex-col items-center justify-center gap-1 transition-all ${currentView === 'profile' ? 'text-[#FF6B4A]' : 'text-gray-300'}`}>
+            <User size={24} strokeWidth={currentView === 'profile' ? 3 : 2} fill="currentColor" fillOpacity={currentView === 'profile' ? 0.15 : 0} />
+            <span className="text-[9px] font-black uppercase tracking-tighter">ملفي</span>
           </button>
         </div>
       </main>
