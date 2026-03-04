@@ -16,16 +16,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 }) => {
   return (
     <>
-      {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-[#1D1B4B]/20 backdrop-blur-sm z-50 transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-[#1D1B4B]/20 z-[100] transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         onClick={onClose}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-[#fde2c5] z-[60] transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-[#fde2c5] z-[110] transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
           } shadow-none`}
         dir="rtl"
       >
@@ -47,8 +46,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
                 key={surah.id}
                 onClick={() => onSelect(surah.id)}
                 className={`w-full group flex items-center justify-between p-3.5 rounded-2xl transition-all duration-300 shadow-none border-none outline-none ${selectedId === surah.id
-                    ? 'bg-[#1D1B4B] text-white'
-                    : 'bg-white/20 hover:bg-white/60 text-[#1D1B4B]/80'
+                  ? 'bg-[#1D1B4B] text-white'
+                  : 'bg-white/20 hover:bg-white/60 text-[#1D1B4B]/80'
                   }`}
               >
                 <div className="flex items-center gap-4">

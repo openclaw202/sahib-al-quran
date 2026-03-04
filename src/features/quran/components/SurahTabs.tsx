@@ -27,7 +27,7 @@ export const SurahTabs: React.FC<SurahTabsProps> = ({ surah }) => {
             key={section.id}
             onClick={() => setActiveTab(section.id)}
             className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap text-[11px] font-bold transition-all ${activeTab === section.id
-              ? 'text-[#1D1B4B] bg-gray-50 rounded-lg'
+              ? 'text-[#1D1B4B] bg-white border border-gray-100 rounded-lg'
               : 'text-gray-400 hover:text-gray-600'
               }`}
           >
@@ -53,7 +53,7 @@ export const SurahTabs: React.FC<SurahTabsProps> = ({ surah }) => {
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-none">
                 <p className="leading-[1.8] text-[#1D1B4B] text-sm font-medium text-right">
                   تعتبر سورة {surah.name} من أعظم سور القرآن الكريم، تشتمل على مجمل معاني القرآن من توحيد وعبادة ووعد ووعيد، وهي أساس الصلاة وركنها المتين.
                 </p>
@@ -63,7 +63,7 @@ export const SurahTabs: React.FC<SurahTabsProps> = ({ surah }) => {
 
           {activeTab === 'asbab' && (
             <div className="animate-in fade-in duration-500">
-              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-none">
                 <p className="leading-[1.8] text-[#1D1B4B] text-sm text-right font-medium">
                   {surah.asbabAlNuzul || 'هذا المحتوى يتم تحضيره وتوثيقه حالياً من أمهات كتب التفسير والحديث لضمان دقة المعلومات.'}
                 </p>
@@ -73,7 +73,7 @@ export const SurahTabs: React.FC<SurahTabsProps> = ({ surah }) => {
 
           {!['details', 'asbab'].includes(activeTab) && (
             <div className="flex flex-col items-center justify-center py-20 text-center animate-in zoom-in-95 duration-500">
-              <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-[#1D1B4B]/20 mb-4 border border-gray-100">
+              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-[#1D1B4B]/20 mb-4 border border-gray-100 shadow-none">
                 <span className="text-3xl">{sections.find(s => s.id === activeTab)?.icon}</span>
               </div>
               <h4 className="text-[#1D1B4B] font-bold text-sm mb-2">المحتوى قيد التوثيق</h4>

@@ -91,12 +91,12 @@ export const MainDashboard: React.FC = () => {
 
           <div className="flex-1 lg:flex-none flex justify-center lg:justify-start relative z-[60]">
             <motion.img
-              src="/images/Sahib Al Quran.png"
+              src={currentView === 'home' ? "/images/Sahib Al Quran.png" : "/images/Sahib Al Quran - white.png"}
               alt="صاحب القرآن"
               className="h-7 object-contain"
               style={{
-                opacity: smallLogoOpacity,
-                y: smallLogoY,
+                opacity: currentView === 'home' ? smallLogoOpacity : 1,
+                y: currentView === 'home' ? smallLogoY : 0,
               }}
             />
           </div>
@@ -108,7 +108,7 @@ export const MainDashboard: React.FC = () => {
 
         {/* Scrollable Area */}
         <div
-          className="flex-1 overflow-y-auto scrollbar-hide z-10 relative bg-[#F5F7FB]"
+          className="flex-1 overflow-y-auto scrollbar-hide z-10 relative bg-white"
           ref={scrollContainerRef}
         >
           {/* Large Logo Section - Restricted to Home View for better UX */}
@@ -153,7 +153,7 @@ export const MainDashboard: React.FC = () => {
                     <div className="absolute top-20 left-10 w-8 h-8 rounded-full bg-white/20 blur-sm"></div>
                   </div>
 
-                  <div className="bg-white rounded-[32px] p-8 shadow-sm border border-white relative">
+                  <div className="bg-white rounded-[32px] p-8 border border-white relative shadow-lg shadow-gray-100/70">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-orange-100 p-1">
                         <div className="w-full h-full rounded-full bg-gray-200 overflow-hidden">
