@@ -3,6 +3,7 @@ export type DashboardView =
     | 'tadabbur'
     | 'mushaf'
     | 'profile'
+    | 'reflections'
     | 'environments'
     | 'methodology'
     | 'supplications'

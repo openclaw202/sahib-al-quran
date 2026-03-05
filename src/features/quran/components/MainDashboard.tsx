@@ -13,6 +13,7 @@ import { useDashboard } from '../hooks/useDashboard';
 import { HomeView } from './views/HomeView';
 import { TadabburView } from './views/TadabburView';
 import { MushafView } from './views/MushafView';
+import { ReflectionsSection } from './views/ReflectionsSection';
 import { EnvironmentsView } from './views/EnvironmentsView';
 import { MethodologyView } from './views/MethodologyView';
 import { SupplicationsView } from './views/SupplicationsView';
@@ -74,6 +75,7 @@ export const MainDashboard: React.FC = () => {
             {currentView === 'home' && <HomeView onNavigate={navigateTo} />}
             {currentView === 'tadabbur' && <TadabburView surah={selectedSurah as any} />}
             {currentView === 'mushaf' && <MushafView />}
+            {currentView === 'reflections' && <ReflectionsSection />}
             {currentView === 'environments' && <EnvironmentsView />}
             {currentView === 'methodology' && <MethodologyView />}
             {currentView === 'supplications' && <SupplicationsView />}

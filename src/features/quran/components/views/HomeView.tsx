@@ -71,7 +71,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
                             <IconBubble label="التدبر" icon={<Bookmark size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0E6FF" iconColor="#9B66FF" onClick={() => onNavigate('tadabbur')} />
                             <IconBubble label="البيئة القرآنية" icon={<Mountain size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEF7E1" iconColor="#F1C40F" onClick={() => onNavigate('environments')} />
                             <IconBubble label="المنهجية" icon={<ClipboardList size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF1F1" iconColor="#FF6B6B" onClick={() => onNavigate('methodology')} />
-                            <IconBubble label="تأملاتي" icon={<PenTool size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEFBEA" iconColor="#E67E22" />
+                            <IconBubble label="تأملاتي" icon={<PenTool size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEFBEA" iconColor="#E67E22" onClick={() => onNavigate('reflections')} />
 
                             <IconBubble label="المجتمع" icon={<MessageCircle size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F2F3FF" iconColor="#5F27CD" />
                             <IconBubble label="أدعية القرآن" icon={<Heart size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF3E0" iconColor="#FF6B6B" onClick={() => onNavigate('supplications')} />

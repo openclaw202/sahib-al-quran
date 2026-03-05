@@ -37,11 +37,22 @@ export const MushafView: React.FC = () => {
     const [activeAyahForReflection, setActiveAyahForReflection] = useState<number | null>(null);
 
     // Load reflections from localStorage
-    useEffect(() => {
+    const loadReflections = () => {
         const saved = localStorage.getItem('quran_reflections');
         if (saved) {
             setReflections(JSON.parse(saved));
         }
+    };
+
+    useEffect(() => {
+        loadReflections();
+
+        // Listen for sync events from ReflectionsSection
+        const handleSync = (e: any) => {
+            if (e.detail) setReflections(e.detail);
+        };
+        window.addEventListener('quran_reflections_updated', handleSync);
+        return () => window.removeEventListener('quran_reflections_updated', handleSync);
     }, []);
 
     // Save reflections to localStorage
@@ -58,11 +69,15 @@ export const MushafView: React.FC = () => {
             timestamp: Date.now()
         };
 
-        const updated = [...reflections, reflection];
+        const existing = JSON.parse(localStorage.getItem('quran_reflections') || '[]');
+        const updated = [...existing, reflection];
         setReflections(updated);
         localStorage.setItem('quran_reflections', JSON.stringify(updated));
         setNewReflection('');
         setActiveAyahForReflection(null);
+
+        // Dispatch sync event
+        window.dispatchEvent(new CustomEvent('quran_reflections_updated', { detail: updated }));
     };
 
     const currentSurahInfo = useMemo(() => {
