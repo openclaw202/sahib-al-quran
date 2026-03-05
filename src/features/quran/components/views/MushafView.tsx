@@ -22,6 +22,22 @@ const toArabicNumber = (num: number): string => {
     return num.toString().split('').map(d => arabicNumerals[parseInt(d)]).join('');
 };
 
+const SURAH_START_PAGES = [
+    1, 2, 50, 77, 106, 128, 151, 177, 187, 208, 221, 235, 249, 255, 262, 267, 282, 293, 305, 312, 322, 332, 342, 350, 359, 367, 377, 385, 396, 404, 411, 415, 418, 428, 434, 440, 446, 453, 458, 467, 477, 483, 489, 496, 499, 502, 507, 511, 515, 518, 520, 523, 526, 528, 531, 534, 537, 542, 545, 549, 551, 553, 554, 556, 558, 560, 562, 564, 566, 568, 570, 572, 574, 575, 577, 578, 580, 582, 583, 585, 586, 587, 587, 589, 590, 591, 591, 592, 593, 594, 595, 595, 596, 596, 597, 597, 598, 598, 599, 599, 600, 600, 601, 601, 601, 602, 602, 602, 603, 603, 603, 604, 604, 604
+];
+
+const getSurahFromPage = (page: number) => {
+    let surahId = 1;
+    for (let i = 0; i < SURAH_START_PAGES.length; i++) {
+        if (page >= SURAH_START_PAGES[i]) {
+            surahId = i + 1;
+        } else {
+            break;
+        }
+    }
+    return SURAH_LIST.find(s => s.id === surahId);
+};
+
 export const MushafView: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageAyahs, setPageAyahs] = useState<PageAyah[]>([]);
@@ -89,6 +105,8 @@ export const MushafView: React.FC = () => {
             revelationType: firstAyah.revelationType === 'Meccan' ? 'مكية' : 'مدنية'
         };
     }, [pageAyahs]);
+
+    const sliderSurahInfo = useMemo(() => getSurahFromPage(currentPage), [currentPage]);
 
     const loadPage = useCallback(async (pageNumber: number) => {
         setLoading(true);
@@ -426,19 +444,21 @@ export const MushafView: React.FC = () => {
                 <div className="max-w-[500px] mx-auto space-y-4">
                     {/* Detailed Info Bar */}
                     <div className="flex items-center justify-between text-[#1D1B4B]">
-                        <div className="flex flex-col items-start order-last">
-                            <span className="text-[10px] text-gray-400 font-bold">سورة</span>
-                            <span className="text-[14px] font-black">{currentSurahInfo?.name}</span>
-                        </div>
-                        <div className="flex flex-col items-center order-2">
-                            <span className="text-[10px] text-gray-400 font-bold">صفحة</span>
+                        {/* Right: Page */}
+                        <div className="flex items-center gap-1.5 flex-1 justify-start">
+                            <span className="text-[12px] text-gray-400 font-bold">صفحة</span>
                             <span className="text-[14px] font-black">{toArabicNumber(currentPage)}</span>
                         </div>
-                        <div className="flex flex-col items-end order-first">
-                            <span className="text-[10px] text-gray-400 font-bold">آية رقم</span>
-                            <span className="text-[14px] font-black">
-                                {pageAyahs.length > 0 ? toArabicNumber(pageAyahs[0].numberInSurah) : ''}
-                            </span>
+                        
+                        {/* Center: Surah */}
+                        <div className="flex items-center justify-center flex-1">
+                            <span className="text-[15px] font-black">{sliderSurahInfo?.name}</span>
+                        </div>
+
+                        {/* Left: Surah Number */}
+                        <div className="flex items-center gap-1.5 flex-1 justify-end">
+                            <span className="text-[12px] text-gray-400 font-bold">رقم السورة</span>
+                            <span className="text-[14px] font-black">{sliderSurahInfo ? toArabicNumber(sliderSurahInfo.id) : ''}</span>
                         </div>
                     </div>
 
