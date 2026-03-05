@@ -175,22 +175,20 @@ export const MushafView: React.FC = () => {
         <div className="h-full flex flex-col bg-white" dir="rtl">
             {/* Header */}
             <div className="px-6 py-4 border-b border-gray-50 flex items-center justify-between bg-white sticky top-0 z-40">
-                <div className="w-1/3 text-right">
+                <div className="flex-1 text-right">
                     <button
                         onClick={() => setIsSurahListOpen(!isSurahListOpen)}
                         className="flex items-center gap-2 hover:bg-gray-50 px-2 py-1 rounded-lg transition-colors"
                     >
-                        <span className="text-[18px] font-black text-[#1D1B4B]">{currentSurahInfo?.name}</span>
+                        <span className="text-[20px] text-[#1D1B4B] font-uthmani pt-1">{currentSurahInfo?.name}</span>
                         <ChevronDown size={18} className="text-[#D4AF37]" />
                     </button>
                 </div>
                 
-                <div className="w-1/3 text-center text-[16px] font-black text-[#1D1B4B]">
-                    سورة رقم {currentSurahInfo?.number ? toArabicNumber(currentSurahInfo.number) : ''}
-                </div>
-
-                <div className="w-1/3 text-left text-[12px] font-bold text-[#D4AF37]">
-                    {currentSurahInfo?.revelationType}
+                <div className="flex-1 text-left">
+                    <span className="text-[16px] text-[#D4AF37] font-uthmani pt-1 inline-block">
+                        {currentSurahInfo?.revelationType}
+                    </span>
                 </div>
             </div>
 
