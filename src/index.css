@@ -133,3 +133,22 @@
 .font-graphik {
   font-family: 'Graphik Arabic', sans-serif !important;
 }
+
+.font-uthmani {
+  font-family: 'Amiri Quran', 'Scheherazade New', 'Traditional Arabic', serif !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Scheherazade+New:wght@400;500;600;700&display=swap');
+
+.quran-page-view .ayah-text {
+  word-spacing: 0.1em;
+}
+
+.quran-verses-view .verse-card {
+  transition: all 0.3s ease;
+}
+
+.quran-verses-view .verse-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
