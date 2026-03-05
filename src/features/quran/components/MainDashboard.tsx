@@ -71,7 +71,7 @@ export const MainDashboard: React.FC = () => {
           )}
 
           {/* Main Dashboard Router */}
-          <div className={`max-w-[500px] mx-auto ${currentView === 'home' ? 'h-full flex flex-col pt-2 pb-4 px-6 overflow-hidden relative z-10' : 'px-6 py-4 space-y-8 pb-32 relative z-10'}`}>
+          <div className={`max-w-[500px] mx-auto ${currentView === 'home' ? 'h-full flex flex-col pt-2 pb-4 px-6 overflow-hidden relative z-10' : currentView === 'mushaf' ? 'px-6 pb-32 relative z-10' : 'px-6 py-4 space-y-8 pb-32 relative z-10'}`}>
 
             {currentView === 'home' && <HomeView onNavigate={navigateTo} />}
             {currentView === 'tadabbur' && <TadabburView surah={selectedSurah as any} />}

@@ -59,7 +59,12 @@ export const MushafView: React.FC = () => {
                     </div>
                 ) : (
                     /* عرض المحتوى حسب وضع العرض المختار */
-                    <div className="px-6 pt-[18px] pb-32">
+                    <div 
+                        className="px-6 pt-[18px] pb-32 min-h-screen touch-pan-y"
+                        onTouchStart={state.handlePageTouchStart}
+                        onTouchMove={state.handlePageTouchMove}
+                        onTouchEnd={state.handlePageTouchEnd}
+                    >
                         {/* ===== وضع التفسير ===== */
                         state.viewMode === 'tafsir' ? (
                             <TafsirPageContent

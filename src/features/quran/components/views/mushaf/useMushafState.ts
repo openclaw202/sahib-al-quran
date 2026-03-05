@@ -50,6 +50,10 @@ export const useMushafState = () => {
     const [longPressTimer, setLongPressTimer] = useState<any>(null);
     // هل منتقي الألوان مفتوح
     const [showColorPicker, setShowColorPicker] = useState(false);
+    
+    // ===== حالات السحب (Swipe) =====
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+    const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
     // ===== حالات المفضلة والتظليل =====
     // قائمة الآيات المفضلة
@@ -91,6 +95,30 @@ export const useMushafState = () => {
                 // تم اكتشاف نقرة واحدة - إظهار/إخفاء شارة الإضاءة
                 setActiveLightbulb(activeLightbulb === ayah.number ? null : ayah.number);
             }
+        }
+    };
+
+    // ===== التعامل مع سحب الصفحة (Swipe) =====
+    const handlePageTouchStart = (e: React.TouchEvent) => {
+        setTouchEndX(null);
+        setTouchStartX(e.targetTouches[0].clientX);
+    };
+
+    const handlePageTouchMove = (e: React.TouchEvent) => {
+        setTouchEndX(e.targetTouches[0].clientX);
+    };
+
+    const handlePageTouchEnd = () => {
+        if (!touchStartX || !touchEndX) return;
+        
+        const distance = touchStartX - touchEndX;
+        const isLeftSwipe = distance > 50;
+        const isRightSwipe = distance < -50;
+        
+        if (isLeftSwipe && currentPage < 604) {
+            loadPage(currentPage + 1);
+        } else if (isRightSwipe && currentPage > 1) {
+            loadPage(currentPage - 1);
         }
     };
 
@@ -311,11 +339,15 @@ export const useMushafState = () => {
         setLongPressMenu,
         activeLightbulb,
         setActiveLightbulb,
-        longPressTimer,
-        handleAyahTouchStart,
-        handleAyahTouchEnd,
         showColorPicker,
         setShowColorPicker,
+        handleAyahTouchStart,
+        handleAyahTouchEnd,
+
+        // التفاعل بالسحب مع الصفحة
+        handlePageTouchStart,
+        handlePageTouchMove,
+        handlePageTouchEnd,
 
         // المفضلة والتظليل
         favorites,

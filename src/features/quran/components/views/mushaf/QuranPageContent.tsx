@@ -143,13 +143,14 @@ export const QuranPageContent: React.FC<QuranPageContentProps> = ({
     onTouchEnd,
 }) => {
     return (
-        // حاوية الصفحة بخط عثماني ومحاذاة من اليمين لليسار
+        // حاوية الصفحة بخط عثماني ومحاذاة من اليمين لليسار مع منع التحديد
         <div
-            className="font-uthmani"
+            className="font-uthmani select-none"
             style={{
                 direction: 'rtl',
                 textAlign: 'justify',
                 textAlignLast: 'center',
+                WebkitTouchCallout: 'none', // تعطيل قائمة اللمس الخاصة بنظام iOS
             }}
         >
             {pageAyahs.map((ayah) => {
