@@ -154,25 +154,37 @@ export const QuranPageContent: React.FC<QuranPageContentProps> = ({
 
                 // معالجة البسملة: إزالتها من نص الآية وعرضها بشكل منفصل
                 if (isFirstInSurah && !isAtTawbah) {
-                    // محاولة إزالة البسملة بكل أشكالها الممكنة من بداية النص
-                    const possibleBasmalas = [
-                        BASMALA_TEXT,
-                        "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-                        "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
-                        "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ"
-                    ];
-                    
                     basmala = BASMALA_TEXT;
                     
-                    for (const b of possibleBasmalas) {
-                        if (ayahText.startsWith(b)) {
-                            ayahText = ayahText.substring(b.length).trim();
-                            break;
+                    // استخدام regex ذكي لاقتطاع البسملة مهما كان التشكيل أو الرموز
+                    // نبحث عن "بسم" ثم أي حروف (من 10 إلى 50 حرف لتغطية "الله الرحمن ال") ثم "رحيم"
+                    const basmalaRegex = /^[\s\u00A0\u200Bۖ-۩۞۝]*ب[\u064B-\u065F]*س[\u064B-\u065F]*م[\u064B-\u065F]*[\s\S]{10,50}?ر[\u064B-\u065F]*ح[\u064B-\u065F]*ي[\u064B-\u065F]*م[\u064B-\u065F]*/;
+                    const match = ayahText.match(basmalaRegex);
+                    
+                    if (match) {
+                        ayahText = ayahText.substring(match[0].length);
+                    } else {
+                        // محاولة إضافية بالنص الحرفي في حال لم تنجح الـ Regex
+                        const possibleBasmalas = [
+                            BASMALA_TEXT,
+                            "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+                            "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+                            "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+                            "بسم الله الرحمن الرحيم",
+                            "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+                            "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ"
+                        ];
+                        
+                        for (const b of possibleBasmalas) {
+                            if (ayahText.startsWith(b)) {
+                                ayahText = ayahText.substring(b.length);
+                                break;
+                            }
                         }
                     }
                     
                     // إزالة أي فراغات أو رموز متبقية في البداية
-                    ayahText = ayahText.replace(/^[ \s\u00A0]+/, '');
+                    ayahText = ayahText.replace(/^[\s\u00A0\u200Bۖ-۩۞۝]+/, '');
                 }
 
                 return (
