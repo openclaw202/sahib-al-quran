@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         sans: ['"Graphik Arabic"', 'sans-serif'],
         graphik: ['"Graphik Arabic"', 'sans-serif'],
+        uthmani: ['"UthmanicHafs1"', '"Amiri Quran"', '"Scheherazade New"', '"Traditional Arabic"', 'serif'],
       },
     },
   },

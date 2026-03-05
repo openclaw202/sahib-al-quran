@@ -95,14 +95,14 @@
   *,
   *::before,
   *::after {
-    font-family: 'Graphik Arabic', sans-serif !important;
+    font-family: 'Graphik Arabic', sans-serif;
   }
 
   html,
   body {
     @apply h-full m-0 p-0 overflow-hidden antialiased;
     background-color: var(--app-bg);
-    font-family: 'Graphik Arabic', sans-serif !important;
+    font-family: 'Graphik Arabic', sans-serif;
     color: var(--text-main);
   }
 
@@ -110,7 +110,7 @@
   button,
   textarea,
   select {
-    font-family: 'Graphik Arabic', sans-serif !important;
+    font-family: 'Graphik Arabic', sans-serif;
   }
 
   .scrollbar-hide::-webkit-scrollbar {
@@ -142,9 +142,14 @@
   font-family: 'Graphik Arabic', sans-serif !important;
 }
 
-.font-uthmani {
+/* Uthmani font must override everything - applied to Quran text */
+.font-uthmani,
+.font-uthmani *,
+.font-uthmani span,
+.font-uthmani p {
   font-family: 'UthmanicHafs1', 'Amiri Quran', 'Scheherazade New', 'Traditional Arabic', serif !important;
 }
+
 
 @import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Scheherazade+New:wght@400;500;600;700&display=swap');
 

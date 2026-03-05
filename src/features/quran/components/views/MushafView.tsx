@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Loader2, BookOpen, ScrollText, ChevronDown, Search, MoreVertical, Send, X, MessageSquare } from 'lucide-react';
+import { Loader2, BookOpen, ScrollText, ChevronDown, Search, MoreVertical, Send, X, MessageSquare, Heart, Copy, Share2, BookMarked } from 'lucide-react';
 import { fetchPage, fetchSurahTafsir } from '../../services/quranApi';
 import { Ayah } from '../../types/quran';
 import { SURAH_LIST } from '../../constants/surah-list';
@@ -51,6 +51,46 @@ export const MushafView: React.FC = () => {
     const [reflections, setReflections] = useState<Reflection[]>([]);
     const [newReflection, setNewReflection] = useState('');
     const [activeAyahForReflection, setActiveAyahForReflection] = useState<number | null>(null);
+    const [selectedAyah, setSelectedAyah] = useState<PageAyah | null>(null);
+    const [favorites, setFavorites] = useState<{surah: number; ayah: number}[]>([]);
+
+    // Load favorites from localStorage
+    useEffect(() => {
+        const saved = localStorage.getItem('quran_favorites');
+        if (saved) setFavorites(JSON.parse(saved));
+    }, []);
+
+    const isFavorite = (surahNum: number, ayahNum: number) => 
+        favorites.some(f => f.surah === surahNum && f.ayah === ayahNum);
+
+    const toggleFavorite = (surahNum: number, ayahNum: number) => {
+        let updated;
+        if (isFavorite(surahNum, ayahNum)) {
+            updated = favorites.filter(f => !(f.surah === surahNum && f.ayah === ayahNum));
+        } else {
+            updated = [...favorites, { surah: surahNum, ayah: ayahNum }];
+        }
+        setFavorites(updated);
+        localStorage.setItem('quran_favorites', JSON.stringify(updated));
+    };
+
+    const copyAyah = (ayah: PageAyah) => {
+        const text = `${ayah.text} (${ayah.surahName} - ${toArabicNumber(ayah.numberInSurah)})`;
+        navigator.clipboard.writeText(text).catch(() => {});
+        setSelectedAyah(null);
+    };
+
+    const shareAyah = async (ayah: PageAyah) => {
+        const text = `${ayah.text}\n\n- ${ayah.surahName}، الآية ${toArabicNumber(ayah.numberInSurah)}`;
+        if (navigator.share) {
+            try {
+                await navigator.share({ text });
+            } catch {}
+        } else {
+            navigator.clipboard.writeText(text).catch(() => {});
+        }
+        setSelectedAyah(null);
+    };
 
     // Load reflections from localStorage
     const loadReflections = () => {
@@ -257,14 +297,9 @@ export const MushafView: React.FC = () => {
                                         <div className="text-right" style={{ direction: 'rtl' }}>
                                             <p className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2.5] text-justify font-uthmani" style={{ textAlignLast: 'right' }}>
                                                 {ayah.text}
-                                                <span className="inline-flex items-center justify-center mx-2 text-[#1D1B4B] relative align-middle" style={{ top: '0.1em' }}>
+                                                <span className="inline-flex items-center justify-center mx-2 text-[#1D1B4B] relative align-middle">
                                                     <span className="relative flex items-center justify-center w-12 h-12">
-                                                        <svg viewBox="0 0 40 40" className="absolute w-full h-full text-[#1D1B4B]">
-                                                            {/* Removed the circle outline, kept only the ornate points */}
-                                                            <path d="M20,1 L20,4 M20,36 L20,39 M1,20 L4,20 M36,20 L39,20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                                            <path d="M6,6 L8,8 M34,34 L32,32 M6,34 L8,32 M34,6 L32,8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                                        </svg>
-                                                        <span className="text-[18px] font-bold text-[#1D1B4B] font-uthmani relative z-10" style={{ transform: 'translateY(1px)' }}>
+                                                        <span className="text-[28px] font-bold text-[#1D1B4B] font-uthmani relative z-10">
                                                             {toArabicNumber(ayah.numberInSurah)}
                                                         </span>
                                                     </span>
@@ -292,13 +327,9 @@ export const MushafView: React.FC = () => {
                                             <div className="text-right" style={{ direction: 'rtl' }}>
                                                 <p className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2.5] text-justify font-uthmani" style={{ textAlignLast: 'right' }}>
                                                     {ayah.text}
-                                                    <span className="inline-flex items-center justify-center mx-2 text-[#1D1B4B] relative align-middle" style={{ top: '0.1em' }}>
+                                                    <span className="inline-flex items-center justify-center mx-2 text-[#1D1B4B] relative align-middle">
                                                         <span className="relative flex items-center justify-center w-12 h-12">
-                                                            <svg viewBox="0 0 40 40" className="absolute w-full h-full text-[#1D1B4B]">
-                                                                <path d="M20,1 L20,4 M20,36 L20,39 M1,20 L4,20 M36,20 L39,20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                                                <path d="M6,6 L8,8 M34,34 L32,32 M6,34 L8,32 M34,6 L32,8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                                            </svg>
-                                                            <span className="text-[18px] font-bold text-[#1D1B4B] font-uthmani relative z-10" style={{ transform: 'translateY(1px)' }}>
+                                                            <span className="text-[28px] font-bold text-[#1D1B4B] font-uthmani relative z-10">
                                                                 {toArabicNumber(ayah.numberInSurah)}
                                                             </span>
                                                         </span>
@@ -359,8 +390,8 @@ export const MushafView: React.FC = () => {
                                 })}
                             </div>
                         ) : (
-                            <p
-                                className="text-[24px] md:text-[28px] text-[#1D1B4B] text-center leading-[3] font-uthmani"
+                            <div
+                                className="font-uthmani"
                                 style={{
                                     direction: 'rtl',
                                     textAlign: 'justify',
@@ -369,22 +400,82 @@ export const MushafView: React.FC = () => {
                             >
                                 {pageAyahs.map((ayah, index) => (
                                     <React.Fragment key={ayah.number}>
-                                        <span>{ayah.text}</span>
-                                        <span className="inline-flex items-center justify-center mx-1.5 text-[#1D1B4B] relative align-middle" style={{ top: '0.1em' }}>
-                                            <span className="relative flex items-center justify-center w-12 h-12">
-                                                <svg viewBox="0 0 40 40" className="absolute w-full h-full text-[#1D1B4B]">
-                                                    <path d="M20,1 L20,4 M20,36 L20,39 M1,20 L4,20 M36,20 L39,20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                                    <path d="M6,6 L8,8 M34,34 L32,32 M6,34 L8,32 M34,6 L32,8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                                </svg>
-                                                <span className="text-[18px] font-bold text-[#1D1B4B] font-uthmani relative z-10" style={{ transform: 'translateY(1px)' }}>
-                                                    {toArabicNumber(ayah.numberInSurah)}
+                                        <span
+                                            onClick={() => setSelectedAyah(selectedAyah?.number === ayah.number ? null : ayah)}
+                                            className={`inline cursor-pointer transition-colors duration-200 rounded-sm ${
+                                                selectedAyah?.number === ayah.number
+                                                    ? 'bg-gray-200/70'
+                                                    : ''
+                                            }`}
+                                            style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
+                                        >
+                                            <span className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2] font-uthmani">{ayah.text}</span>
+                                            <span className="inline-flex items-center justify-center mx-1.5 text-[#1D1B4B] relative align-middle">
+                                                <span className="relative flex items-center justify-center w-12 h-12">
+                                                    <span className="text-[28px] font-bold text-[#1D1B4B] font-uthmani relative z-10">
+                                                        {toArabicNumber(ayah.numberInSurah)}
+                                                    </span>
                                                 </span>
                                             </span>
                                         </span>
+
+                                        {/* Ayah Action Menu */}
+                                        {selectedAyah?.number === ayah.number && (
+                                            <span className="block my-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                                                <span className="flex items-center justify-center gap-3 bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3">
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            toggleFavorite(ayah.surahNumber || 0, ayah.numberInSurah);
+                                                        }}
+                                                        className={`flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl transition-all ${
+                                                            isFavorite(ayah.surahNumber || 0, ayah.numberInSurah)
+                                                                ? 'bg-red-50 text-red-500'
+                                                                : 'hover:bg-gray-50 text-gray-500'
+                                                        }`}
+                                                    >
+                                                        <Heart size={20} fill={isFavorite(ayah.surahNumber || 0, ayah.numberInSurah) ? 'currentColor' : 'none'} />
+                                                        <span className="text-[10px] font-bold font-graphik">المفضلة</span>
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            copyAyah(ayah);
+                                                        }}
+                                                        className="flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-gray-50 text-gray-500 transition-all"
+                                                    >
+                                                        <Copy size={20} />
+                                                        <span className="text-[10px] font-bold font-graphik">نسخ</span>
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            shareAyah(ayah);
+                                                        }}
+                                                        className="flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-gray-50 text-gray-500 transition-all"
+                                                    >
+                                                        <Share2 size={20} />
+                                                        <span className="text-[10px] font-bold font-graphik">مشاركة</span>
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedAyah(null);
+                                                            setViewMode('reflections');
+                                                            setActiveAyahForReflection(ayah.numberInSurah);
+                                                        }}
+                                                        className="flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-gray-50 text-gray-500 transition-all"
+                                                    >
+                                                        <BookMarked size={20} />
+                                                        <span className="text-[10px] font-bold font-graphik">تأمل</span>
+                                                    </button>
+                                                </span>
+                                            </span>
+                                        )}
                                         {index < pageAyahs.length - 1 && ' '}
                                     </React.Fragment>
                                 ))}
-                            </p>
+                            </div>
                         )}
                     </div>
                 )}
