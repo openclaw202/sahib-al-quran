@@ -20,6 +20,7 @@ export interface Reflection {
 export interface HighlightColor {
     id: string;
     bg: string;
+    bgLight: string;
     dot: string;
 }
 

@@ -7,4 +7,5 @@ export type DashboardView =
     | 'environments'
     | 'methodology'
     | 'supplications'
-    | 'remembrances';
+    | 'remembrances'
+    | 'idaat';

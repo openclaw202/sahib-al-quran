@@ -27,13 +27,13 @@ export const getSurahFromPage = (page: number) => {
     return SURAH_LIST.find(s => s.id === surahId);
 };
 
-// ألوان التظليل المتاحة
+// ألوان التظليل المتاحة - مع نسخة أخف للعرض
 export const HIGHLIGHT_COLORS: HighlightColor[] = [
-    { id: 'yellow', bg: 'bg-yellow-200/60', dot: 'bg-yellow-400' },
-    { id: 'green', bg: 'bg-green-200/60', dot: 'bg-green-400' },
-    { id: 'blue', bg: 'bg-blue-200/60', dot: 'bg-blue-400' },
-    { id: 'pink', bg: 'bg-pink-200/60', dot: 'bg-pink-400' },
-    { id: 'purple', bg: 'bg-purple-200/60', dot: 'bg-purple-400' },
+    { id: 'yellow', bg: 'bg-yellow-200/60', bgLight: 'bg-yellow-100/40', dot: 'bg-yellow-400' },
+    { id: 'green', bg: 'bg-green-200/60', bgLight: 'bg-green-100/40', dot: 'bg-green-400' },
+    { id: 'blue', bg: 'bg-blue-200/60', bgLight: 'bg-blue-100/40', dot: 'bg-blue-400' },
+    { id: 'pink', bg: 'bg-pink-200/60', bgLight: 'bg-pink-100/40', dot: 'bg-pink-400' },
+    { id: 'purple', bg: 'bg-purple-200/60', bgLight: 'bg-purple-100/40', dot: 'bg-purple-400' },
 ];
 
 // نص البسملة الثابت

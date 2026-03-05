@@ -23,7 +23,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         { label: "المجتمع", icon: <MessageCircle size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F2F3FF", iconColor: "#5F27CD" },
         { label: "أدعية القرآن", icon: <Heart size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FFF3E0", iconColor: "#FF6B6B", action: () => onNavigate('supplications') },
         { label: "أذكار القرآن", icon: <Moon size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#E3F9EC", iconColor: "#49C18B", action: () => onNavigate('remembrances') },
-        { label: "إضاءات", icon: <Lightbulb size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FFF1F1", iconColor: "#FF4757" },
+        { label: "إضاءات", icon: <Lightbulb size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FFF1F1", iconColor: "#FF4757", action: () => onNavigate('idaat') },
         { label: "التفسير", icon: <BookOpen size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F0F8FF", iconColor: "#1E90FF" },
         { label: "قصص القرآن", icon: <Globe size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FEF7E1", iconColor: "#F1C40F" },
         { label: "مسابقات", icon: <Trophy size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F0E6FF", iconColor: "#9B66FF" }

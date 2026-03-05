@@ -59,9 +59,9 @@ export const MushafView: React.FC = () => {
                     </div>
                 ) : (
                     /* عرض المحتوى حسب وضع العرض المختار */
-                    <div className="px-6 py-8 pb-32">
-                        {/* ===== وضع التفسير ===== */}
-                        {state.viewMode === 'tafsir' ? (
+                    <div className="px-6 pt-[18px] pb-32">
+                        {/* ===== وضع التفسير ===== */
+                        state.viewMode === 'tafsir' ? (
                             <TafsirPageContent
                                 pageAyahs={state.pageAyahs}
                                 tafsirData={state.tafsirData}
@@ -84,7 +84,6 @@ export const MushafView: React.FC = () => {
                             <QuranPageContent
                                 pageAyahs={state.pageAyahs}
                                 ayahHighlights={state.ayahHighlights}
-                                activeLightbulb={state.activeLightbulb}
                                 onTouchStart={state.handleAyahTouchStart}
                                 onTouchEnd={state.handleAyahTouchEnd}
                             />

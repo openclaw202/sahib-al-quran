@@ -18,6 +18,7 @@ import { EnvironmentsView } from './views/EnvironmentsView';
 import { MethodologyView } from './views/MethodologyView';
 import { SupplicationsView } from './views/SupplicationsView';
 import { RemembrancesView } from './views/RemembrancesView';
+import { IdaatView } from './views/IdaatView';
 
 export const MainDashboard: React.FC = () => {
   const {
@@ -80,6 +81,7 @@ export const MainDashboard: React.FC = () => {
             {currentView === 'methodology' && <MethodologyView />}
             {currentView === 'supplications' && <SupplicationsView />}
             {currentView === 'remembrances' && <RemembrancesView />}
+            {currentView === 'idaat' && <IdaatView onBack={() => navigateTo('home')} />}
 
             {/* profile placeholder if needed */}
             {currentView === 'profile' && (
