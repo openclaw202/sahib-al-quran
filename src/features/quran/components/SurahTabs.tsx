@@ -39,17 +39,17 @@ export const SurahTabs: React.FC<SurahTabsProps> = ({ surah }) => {
   return (
     <div className="flex flex-col gap-8 animate-in fade-in duration-700">
       {/* Refined Tabs Structure */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar border-b border-gray-100">
+      <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar scrollbar-hide">
         {sections.map((section) => (
           <button
             key={section.id}
             onClick={() => setActiveTab(section.id)}
-            className={`flex items-center gap-2 px-4 py-2 whitespace-nowrap text-[11px] font-bold transition-all ${activeTab === section.id
-              ? 'text-[#1D1B4B] bg-white border border-gray-100 rounded-lg'
-              : 'text-gray-400 hover:text-gray-600'
+            className={`flex items-center gap-2 px-4 py-2.5 whitespace-nowrap text-[11px] font-bold transition-all duration-300 ${activeTab === section.id
+              ? 'text-[#1D1B4B] bg-white border border-gray-100 rounded-xl shadow-sm'
+              : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50/50 rounded-xl'
               }`}
           >
-            <span className="text-sm">{section.icon}</span>
+            <span className={`text-sm ${activeTab === section.id ? 'text-[#1D1B4B]' : 'text-gray-300'}`}>{section.icon}</span>
             <span>{section.label}</span>
           </button>
         ))}
