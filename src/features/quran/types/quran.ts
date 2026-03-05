@@ -5,6 +5,9 @@ export interface Ayah {
   page: number;
   juz: number;
   hizbQuarter: number;
+  surahNumber?: number;
+  surahName?: string;
+  revelationType?: string;
 }
 
 export interface Surah {

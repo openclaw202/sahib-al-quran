@@ -74,6 +74,7 @@ export async function fetchPage(pageNumber: number): Promise<Ayah[]> {
     hizbQuarter: ayah.hizbQuarter,
     surahNumber: ayah.surah.number,
     surahName: ayah.surah.name,
+    revelationType: ayah.surah.revelationType,
   }));
 }
 
