@@ -15,6 +15,27 @@ interface HomeViewProps {
 export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
     const { activeSlide, sliderRef, handleSliderScroll } = useHomeView();
 
+    const icons = [
+        { label: "التدبر", icon: <Bookmark size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F0E6FF", iconColor: "#9B66FF", action: () => onNavigate('tadabbur') },
+        { label: "البيئة القرآنية", icon: <Mountain size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FEF7E1", iconColor: "#F1C40F", action: () => onNavigate('environments') },
+        { label: "المنهجية", icon: <ClipboardList size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FFF1F1", iconColor: "#FF6B6B", action: () => onNavigate('methodology') },
+        { label: "تأملاتي", icon: <PenTool size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FEFBEA", iconColor: "#E67E22", action: () => onNavigate('reflections') },
+        { label: "المجتمع", icon: <MessageCircle size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F2F3FF", iconColor: "#5F27CD" },
+        { label: "أدعية القرآن", icon: <Heart size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FFF3E0", iconColor: "#FF6B6B", action: () => onNavigate('supplications') },
+        { label: "أذكار القرآن", icon: <Moon size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#E3F9EC", iconColor: "#49C18B", action: () => onNavigate('remembrances') },
+        { label: "إضاءات", icon: <Lightbulb size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FFF1F1", iconColor: "#FF4757" },
+        { label: "التفسير", icon: <BookOpen size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F0F8FF", iconColor: "#1E90FF" },
+        { label: "قصص القرآن", icon: <Globe size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#FEF7E1", iconColor: "#F1C40F" },
+        { label: "مسابقات", icon: <Trophy size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />, bgColor: "#F0E6FF", iconColor: "#9B66FF" }
+    ];
+
+    // Calculate how many slides are needed based on 12 icons per grid (4 cols x 3 rows)
+    const iconsPerSlide = 12;
+    const numSlides = Math.ceil(icons.length / iconsPerSlide);
+    const slides = Array.from({ length: numSlides }, (_, i) => 
+        icons.slice(i * iconsPerSlide, (i + 1) * iconsPerSlide)
+    );
+
     return (
         <div className="flex-1 flex flex-col min-h-0 relative">
             {/* 1. Logo */}
@@ -60,42 +81,41 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
             </div>
 
             {/* 3. Icon Grid Slider */}
-            <div className="flex-1 flex flex-col min-h-0 relative z-30 overflow-hidden">
+            <div className="flex-1 flex flex-col min-h-0 relative z-30 overflow-hidden pb-4">
                 <div
                     ref={sliderRef}
                     onScroll={handleSliderScroll}
                     className="flex-1 overflow-x-auto scrollbar-hide snap-x snap-mandatory flex gap-4 px-2 relative w-full snap-always"
                 >
-                    <div className="min-w-full w-full flex justify-center py-2 h-full items-start shrink-0 snap-center">
-                        <div className="grid grid-cols-4 grid-rows-3 gap-x-2 gap-y-3 px-1 w-full max-w-[360px] mx-auto">
-                            <IconBubble label="التدبر" icon={<Bookmark size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0E6FF" iconColor="#9B66FF" onClick={() => onNavigate('tadabbur')} />
-                            <IconBubble label="البيئة القرآنية" icon={<Mountain size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEF7E1" iconColor="#F1C40F" onClick={() => onNavigate('environments')} />
-                            <IconBubble label="المنهجية" icon={<ClipboardList size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF1F1" iconColor="#FF6B6B" onClick={() => onNavigate('methodology')} />
-                            <IconBubble label="تأملاتي" icon={<PenTool size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEFBEA" iconColor="#E67E22" onClick={() => onNavigate('reflections')} />
-
-                            <IconBubble label="المجتمع" icon={<MessageCircle size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F2F3FF" iconColor="#5F27CD" />
-                            <IconBubble label="أدعية القرآن" icon={<Heart size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF3E0" iconColor="#FF6B6B" onClick={() => onNavigate('supplications')} />
-                            <IconBubble label="أذكار القرآن" icon={<Moon size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#E3F9EC" iconColor="#49C18B" onClick={() => onNavigate('remembrances')} />
-                            <IconBubble label="إضاءات" icon={<Lightbulb size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FFF1F1" iconColor="#FF4757" />
-
-                            <IconBubble label="التفسير" icon={<BookOpen size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0F8FF" iconColor="#1E90FF" />
-                            <IconBubble label="قصص القرآن" icon={<Globe size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#FEF7E1" iconColor="#F1C40F" />
-                            <IconBubble label="مسابقات" icon={<Trophy size={20} strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />} bgColor="#F0E6FF" iconColor="#9B66FF" />
+                    {slides.map((slideIcons, slideIndex) => (
+                        <div key={slideIndex} className="min-w-full w-full flex justify-center py-2 h-full items-start shrink-0 snap-center">
+                            <div className="grid grid-cols-4 grid-rows-3 gap-x-2 gap-y-3 px-1 w-full max-w-[360px] mx-auto">
+                                {slideIcons.map((item, idx) => (
+                                    <IconBubble 
+                                        key={idx} 
+                                        label={item.label} 
+                                        icon={item.icon} 
+                                        bgColor={item.bgColor} 
+                                        iconColor={item.iconColor} 
+                                        onClick={item.action} 
+                                    />
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    {/* Placeholder second page for 2 dots (Currently blank/under-dev) */}
-                    <div className="min-w-full w-full flex justify-center py-2 h-full items-start shrink-0 snap-center">
-                        <div className="grid grid-cols-4 grid-rows-3 gap-x-2 gap-y-3 px-1 w-full max-w-[360px] mx-auto opacity-50">
-                            <div className="flex flex-col items-center justify-center p-4 col-span-4 text-xs font-bold text-gray-400">المزيد قريباً...</div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
                 {/* Pagination Dots */}
-                <div className="flex justify-center gap-1.5 mt-auto pb-20 relative z-40">
-                    <div className={`w-1.5 h-1.5 rounded-full transition-colors ${activeSlide === 0 ? 'bg-[#FF6B4A]' : 'bg-gray-200'}`}></div>
-                    <div className={`w-1.5 h-1.5 rounded-full transition-colors ${activeSlide === 1 ? 'bg-[#FF6B4A]' : 'bg-gray-200'}`}></div>
-                </div>
+                {numSlides > 1 && (
+                    <div className="flex justify-center gap-1.5 mt-2 relative z-40">
+                        {Array.from({ length: numSlides }).map((_, idx) => (
+                            <div 
+                                key={idx} 
+                                className={`w-1.5 h-1.5 rounded-full transition-colors ${activeSlide === idx ? 'bg-[#FF6B4A]' : 'bg-gray-200'}`}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

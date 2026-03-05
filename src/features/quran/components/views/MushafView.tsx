@@ -254,15 +254,19 @@ export const MushafView: React.FC = () => {
                             <div className="space-y-8">
                                 {pageAyahs.map((ayah) => (
                                     <div key={ayah.number} className="space-y-4">
-                                        <div className="text-right">
-                                            <p className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2.5] text-justify font-uthmani">
+                                        <div className="text-right" style={{ direction: 'rtl' }}>
+                                            <p className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2.5] text-justify font-uthmani" style={{ textAlignLast: 'right' }}>
                                                 {ayah.text}
-                                                <span className="inline-flex items-center justify-center mx-2 text-[#D4AF37]">
-                                                    <span className="relative flex items-center justify-center w-8 h-8">
-                                                        <svg viewBox="0 0 40 40" className="absolute w-full h-full">
-                                                            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                                <span className="inline-flex items-center justify-center mx-2 text-[#D4AF37] relative align-middle" style={{ top: '0.1em' }}>
+                                                    <span className="relative flex items-center justify-center w-9 h-9">
+                                                        {/* Golden ornate circle typical of Mushaf */}
+                                                        <svg viewBox="0 0 40 40" className="absolute w-full h-full text-[#D4AF37]">
+                                                            <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                                            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
+                                                            {/* Simple outer decoration points */}
+                                                            <path d="M20,1 L20,3 M20,37 L20,39 M1,20 L3,20 M37,20 L39,20" stroke="currentColor" strokeWidth="1" />
                                                         </svg>
-                                                        <span className="text-[10px] font-bold text-[#1D1B4B] font-graphik">
+                                                        <span className="text-[12px] font-bold text-[#1D1B4B] font-uthmani relative z-10" style={{ transform: 'translateY(1px)' }}>
                                                             {toArabicNumber(ayah.numberInSurah)}
                                                         </span>
                                                     </span>
@@ -287,15 +291,17 @@ export const MushafView: React.FC = () => {
                                     
                                     return (
                                         <div key={ayah.number} className="space-y-4">
-                                            <div className="text-right">
-                                                <p className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2.5] text-justify font-uthmani">
+                                            <div className="text-right" style={{ direction: 'rtl' }}>
+                                                <p className="text-[24px] md:text-[28px] text-[#1D1B4B] leading-[2.5] text-justify font-uthmani" style={{ textAlignLast: 'right' }}>
                                                     {ayah.text}
-                                                    <span className="inline-flex items-center justify-center mx-2 text-[#D4AF37]">
-                                                        <span className="relative flex items-center justify-center w-8 h-8">
-                                                            <svg viewBox="0 0 40 40" className="absolute w-full h-full">
-                                                                <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                                    <span className="inline-flex items-center justify-center mx-2 text-[#D4AF37] relative align-middle" style={{ top: '0.1em' }}>
+                                                        <span className="relative flex items-center justify-center w-9 h-9">
+                                                            <svg viewBox="0 0 40 40" className="absolute w-full h-full text-[#D4AF37]">
+                                                                <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                                                <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
+                                                                <path d="M20,1 L20,3 M20,37 L20,39 M1,20 L3,20 M37,20 L39,20" stroke="currentColor" strokeWidth="1" />
                                                             </svg>
-                                                            <span className="text-[10px] font-bold text-[#1D1B4B] font-graphik">
+                                                            <span className="text-[12px] font-bold text-[#1D1B4B] font-uthmani relative z-10" style={{ transform: 'translateY(1px)' }}>
                                                                 {toArabicNumber(ayah.numberInSurah)}
                                                             </span>
                                                         </span>
@@ -367,12 +373,14 @@ export const MushafView: React.FC = () => {
                                 {pageAyahs.map((ayah, index) => (
                                     <React.Fragment key={ayah.number}>
                                         <span>{ayah.text}</span>
-                                        <span className="inline-flex items-center justify-center mx-1 text-[#D4AF37]">
-                                            <span className="relative flex items-center justify-center w-8 h-8">
-                                                <svg viewBox="0 0 40 40" className="absolute w-full h-full">
-                                                    <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                        <span className="inline-flex items-center justify-center mx-1.5 text-[#D4AF37] relative align-middle" style={{ top: '0.1em' }}>
+                                            <span className="relative flex items-center justify-center w-9 h-9">
+                                                <svg viewBox="0 0 40 40" className="absolute w-full h-full text-[#D4AF37]">
+                                                    <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                                                    <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
+                                                    <path d="M20,1 L20,3 M20,37 L20,39 M1,20 L3,20 M37,20 L39,20" stroke="currentColor" strokeWidth="1" />
                                                 </svg>
-                                                <span className="text-[10px] font-bold text-[#1D1B4B] font-graphik">
+                                                <span className="text-[12px] font-bold text-[#1D1B4B] font-uthmani relative z-10" style={{ transform: 'translateY(1px)' }}>
                                                     {toArabicNumber(ayah.numberInSurah)}
                                                 </span>
                                             </span>
