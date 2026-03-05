@@ -8,6 +8,8 @@ interface QuranPageContentProps {
     pageAyahs: PageAyah[];
     // ألوان التظليل المحفوظة
     ayahHighlights: Record<string, string>;
+    // رقم الآية المحددة للضغط المطول
+    activeAyahNumber?: number;
     // معالج بدء اللمس (للضغط المطول)
     onTouchStart: (e: React.MouseEvent | React.TouchEvent, ayah: PageAyah) => void;
     // معالج انتهاء اللمس
@@ -29,6 +31,7 @@ interface FatihaBasmalaProps {
     ayah: PageAyah;
     basmala: string;
     highlightClass?: string;
+    isActive: boolean;
     onTouchStart: (e: React.MouseEvent | React.TouchEvent, ayah: PageAyah) => void;
     onTouchEnd: (ayah: PageAyah) => void;
 }
@@ -37,11 +40,14 @@ const FatihaBasmala: React.FC<FatihaBasmalaProps> = ({
     ayah,
     basmala,
     highlightClass,
+    isActive,
     onTouchStart,
     onTouchEnd,
 }) => {
     // الحصول على لون الخلفية من ألوان التظليل - لون أخف
     const bgClass = highlightClass ? HIGHLIGHT_COLORS.find(c => c.id === highlightClass)?.bgLight : '';
+    // تفعيل التظليل إذا كانت الآية مظللة أو يتم الضغط عليها
+    const activeClass = bgClass || (isActive ? 'bg-gray-100/50' : '');
 
     return (
         <div className="w-full flex justify-center mb-2 clear-both">
@@ -50,7 +56,7 @@ const FatihaBasmala: React.FC<FatihaBasmalaProps> = ({
                 onMouseUp={() => onTouchEnd(ayah)}
                 onTouchStart={(e) => onTouchStart(e, ayah)}
                 onTouchEnd={() => onTouchEnd(ayah)}
-                className={`inline-flex items-center justify-center cursor-pointer transition-colors duration-300 rounded-lg ${bgClass || ''}`}
+                className={`inline-flex items-center justify-center cursor-pointer transition-colors duration-300 rounded-lg ${activeClass}`}
                 style={{ padding: '0 8px' }}
             >
                 {/* نص البسملة بنفس حجم الآيات */}
@@ -75,6 +81,7 @@ interface AyahSpanProps {
     ayah: PageAyah;
     ayahText: string;
     highlightClass?: string;
+    isActive: boolean;
     onTouchStart: (e: React.MouseEvent | React.TouchEvent, ayah: PageAyah) => void;
     onTouchEnd: (ayah: PageAyah) => void;
 }
@@ -83,11 +90,14 @@ const AyahSpan: React.FC<AyahSpanProps> = ({
     ayah,
     ayahText,
     highlightClass,
+    isActive,
     onTouchStart,
     onTouchEnd,
 }) => {
     // الحصول على لون الخلفية من ألوان التظليل - لون أخف
     const bgClass = highlightClass ? HIGHLIGHT_COLORS.find(c => c.id === highlightClass)?.bgLight : '';
+    // تفعيل التظليل إذا كانت الآية مظللة أو يتم الضغط عليها
+    const activeClass = bgClass || (isActive ? 'bg-gray-100/50' : '');
 
     return (
         <span
@@ -95,11 +105,11 @@ const AyahSpan: React.FC<AyahSpanProps> = ({
             onMouseUp={() => onTouchEnd(ayah)}
             onTouchStart={(e) => onTouchStart(e, ayah)}
             onTouchEnd={() => onTouchEnd(ayah)}
-            className={`inline cursor-pointer transition-all duration-300 ${bgClass || ''} rounded-lg`}
+            className={`inline cursor-pointer transition-all duration-300 ${activeClass} rounded-lg`}
             style={{
                 boxDecorationBreak: 'clone',
                 WebkitBoxDecorationBreak: 'clone',
-                padding: bgClass ? '4px 8px' : '0px',
+                padding: activeClass ? '4px 8px' : '0px',
                 margin: '0 2px'
             }}
         >
@@ -128,6 +138,7 @@ const cleanStrangeSymbols = (text: string) => {
 export const QuranPageContent: React.FC<QuranPageContentProps> = ({
     pageAyahs,
     ayahHighlights,
+    activeAyahNumber,
     onTouchStart,
     onTouchEnd,
 }) => {
@@ -200,6 +211,7 @@ export const QuranPageContent: React.FC<QuranPageContentProps> = ({
                                 ayah={ayah}
                                 basmala={basmala}
                                 highlightClass={highlightClass}
+                                isActive={activeAyahNumber === ayah.number}
                                 onTouchStart={onTouchStart}
                                 onTouchEnd={onTouchEnd}
                             />
@@ -211,6 +223,7 @@ export const QuranPageContent: React.FC<QuranPageContentProps> = ({
                                 ayah={ayah}
                                 ayahText={ayahText}
                                 highlightClass={highlightClass}
+                                isActive={activeAyahNumber === ayah.number}
                                 onTouchStart={onTouchStart}
                                 onTouchEnd={onTouchEnd}
                             />

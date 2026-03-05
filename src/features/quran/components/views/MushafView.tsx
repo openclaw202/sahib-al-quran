@@ -84,6 +84,7 @@ export const MushafView: React.FC = () => {
                             <QuranPageContent
                                 pageAyahs={state.pageAyahs}
                                 ayahHighlights={state.ayahHighlights}
+                                activeAyahNumber={state.longPressMenu?.ayah.number}
                                 onTouchStart={state.handleAyahTouchStart}
                                 onTouchEnd={state.handleAyahTouchEnd}
                             />
